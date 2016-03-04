@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 var connection = config.mongodb.connection;
 
-var discountEvent;
+var discountEvent, inventory;
 
 function initConnections(callback) {
     log.info(connection);
@@ -17,6 +17,7 @@ function initConnections(callback) {
             return callback(err);
         }
         discountEvent = database.collection(config.mongodb.discountEvent);
+        inventory = database.collection(config.mongodb.inventory);
         log.info("MongoDB connected");
         return callback(null);
     });
@@ -27,9 +28,6 @@ function getDiscountEvent(params,callback) {
         if (err) {
             return callback(err);
         }
-        results.sort(function (a, b) {
-            return a.priority - b.priority;
-        });
         
         log.info("getDiscountEvent: the length of results is " + results.length);
         
@@ -46,6 +44,21 @@ function updateDiscountEvent(filter, updates , callback) {
     });
 }
 
+function getInventory(params, callback) {
+    log.info(params);
+    inventory.find(params, {}).toArray(function (err, results) {
+        if (err) {
+            return callback(err);
+        }
+        
+        log.info("getInventory: the length of results is " + results.length);
+        
+        return callback(null, results);
+    });
+}
+
+exports.initConnections = initConnections;
 exports.getDiscountEvent = getDiscountEvent;
 exports.updateDiscountEvent = updateDiscountEvent;
+exports.getInventory = getInventory;
 

@@ -1,9 +1,10 @@
 {
     "mongodb":
     {
-        "connection": "mongodb://scp:111@stcvm-197:27017/CashRegister?connectTimeoutMS=300000&socketTimeoutMS=300000&slaveOk=true",
+        "connection": "mongodb://cr:123@stcvm-197:27017/CashRegister?connectTimeoutMS=300000&socketTimeoutMS=300000&slaveOk=true",
         "database":"CashRegister",
-        "discountEvent":"DiscountEvent"
+        "discountEvent":"DiscountEvent",
+		"inventory":"Inventory"
     }
     ,
     "log":
