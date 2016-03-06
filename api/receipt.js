@@ -65,8 +65,7 @@ function processAmountDiscount(item, discount, receipt) {
     var cashSaved = item.freecount * item.price;
     item.totalPrice -= cashSaved;
     
-    //update total price and cashSaved info
-    receipt.total.price += item.totalPrice;
+    //update total cashSaved info
     receipt.total.cashSaved += cashSaved;
 
     return true;
@@ -77,8 +76,7 @@ function processPriceDiscount(item, discount, receipt) {
     item.totalPrice -= cashSaved;
     item.cashSaved = cashSaved;
     
-    //update total price and cashSaved info
-    receipt.total.price += item.totalPrice;
+    //update total cashSaved info
     receipt.total.cashSaved += cashSaved;
 
     return true;
@@ -100,15 +98,18 @@ function processDiscountInfo(itemInfo) {
             for (var i = 0; i < discountArray.length; i++) {
                 var discount = discountArray[i];
                 //skip the rest when high priority discount condition is met
-                if (discount.type ==="amount-discount" && processAmountDiscount(item, discount, receipt)) {
+                if (discount.type === "amount-discount" && processAmountDiscount(item, discount, receipt)) {
                     break;
                 }
                 if (discount.type === "price-discount" && processPriceDiscount(item, discount, receipt)) {
                     break;
                 }
             }
-            
+
         }
+        
+        //update total price info no matter item is discounted or not
+        receipt.total.price += item.totalPrice;
     });
     return receipt;
 }
@@ -175,8 +176,12 @@ function printReceipt(receipt) {
     var eLine = "***********************";
     log.info(title);
     var itemList = receipt.itemList;
-    itemList.forEach(function(item) {
-        log.info("名称: %s, 数量: %d%s, 单价: %d(元), 小计: %d(元)",item.name,item.count,item.unit,item.price,item.totalPrice);
+    itemList.forEach(function (item) {
+        if (item.cashSaved) {
+            log.info("名称: %s, 数量: %d%s, 单价: %s(元), 小计: %s(元), 节省： %s(元)", item.name, item.count, item.unit, (item.price).toFixed(2), (item.totalPrice).toFixed(2), (item.cashSaved).toFixed(2));
+        } else {
+            log.info("名称: %s, 数量: %d%s, 单价: %s(元), 小计: %s(元)", item.name, item.count, item.unit, parseFloat(item.price).toFixed(2), parseFloat(item.totalPrice).toFixed(2));
+        }
     });
     for (var key in receipt) {
         if (key !== "itemList" && key !== "total") {
@@ -189,8 +194,8 @@ function printReceipt(receipt) {
     }
     var total = receipt.total;
     log.info(sLine);
-    log.info("总计: %d(元)", total.price);
-    log.info("节省: %d(元)", total.cashSaved);
+    log.info("总计: %s(元)", (total.price).toFixed(2));
+    log.info("节省: %s(元)", (total.cashSaved).toFixed(2));
     log.info(eLine);
 }
 
