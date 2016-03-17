@@ -61,7 +61,7 @@ function processAmountDiscount(item, discount, receipt) {
     }
     receipt[discountName].push(item);
 
-    item.freecount = Math.round(item.count * discount.freecount / discount.basecount);
+    item.freecount = Math.floor(item.count * discount.freecount / discount.basecount);
     var cashSaved = item.freecount * item.price;
     item.totalPrice -= cashSaved;
     
@@ -72,7 +72,7 @@ function processAmountDiscount(item, discount, receipt) {
 }
 
 function processPriceDiscount(item, discount, receipt) {
-    var cashSaved = Math.round(item.totalPrice * (1 - discount.rate)*100)/100;
+    var cashSaved = Math.floor(item.totalPrice * (1 - discount.rate)*100)/100;
     item.totalPrice -= cashSaved;
     item.cashSaved = cashSaved;
     
@@ -214,3 +214,7 @@ function generateReceipt(items,callback) {
 
 exports.initDiscountMap = initDiscountMap;
 exports.generateReceipt = generateReceipt;
+exports.processDiscountInfo=processDiscountInfo;
+exports.setDiscountMap=function(discountMap){
+    DiscountMap=discountMap;
+};

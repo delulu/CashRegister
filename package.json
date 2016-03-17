@@ -1,5 +1,5 @@
 {
-    "name": "cash register",
+    "name": "cash-register",
     "version": "0.0.1",
     "private": true,
     "scripts":
@@ -11,7 +11,7 @@
     "dependencies":
     {
         "express": "~4.0.0",
-        "static-favicon": "~1.0.0",
+        "serve-favicon": "~2.3.0",
         "morgan": "~1.0.0",
         "cookie-parser": "~1.0.1",
         "body-parser": "~1.0.0",
@@ -21,6 +21,7 @@
         "request": "2.16.6",
         "async":"~0.8.0",
         "mongodb":"2.0.39",
-		"log4js":"0.6.27"
+        "log4js":"0.6.27",
+        "mongo-express":"0.30.29"
     }
 }

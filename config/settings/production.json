@@ -9,20 +9,20 @@
     ,
     "log":
     {
-        "folder": "d:/log",
+        "folder": "./log",
         "appenders":
         {
             "appenders": [
             {
                 "type": "dateFile",
-                "filename": "d:/log/access.log",
+                "filename": "./log/access.log",
                 "pattern": "-yyyy-MM-dd",
                 "category": "http"
             }
             ,
             {
                 "type": "file",
-                "filename": "d:/log/app.log",
+                "filename": "./log/app.log",
                 "maxLogSize": 10485760,
                 "numBackups": 3
             }
@@ -33,7 +33,7 @@
                 "appender":
                 {
                     "type": "file",
-                    "filename": "d:/log/errors.log"
+                    "filename": "./log/errors.log"
                 }
             }
             ]

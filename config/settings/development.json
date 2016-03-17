@@ -1,7 +1,7 @@
 {
     "mongodb":
     {
-        "connection": "mongodb://cr:123@stcvm-197:27017/CashRegister?connectTimeoutMS=300000&socketTimeoutMS=300000&slaveOk=true",
+        "connection": "mongodb://localhost:27017/CashRegister?connectTimeoutMS=300000&socketTimeoutMS=300000&slaveOk=true",
         "database":"CashRegister",
         "discountEvent":"DiscountEvent",
 		"inventory":"Inventory"
@@ -9,7 +9,7 @@
     ,
     "log":
     {
-        "folder": "d:/log",
+        "folder": "./log",
         "appenders":
         {
             "appenders": [
@@ -19,14 +19,14 @@
             ,
             {
                 "type": "dateFile",
-                "filename": "d:/log/access.log",
+                "filename": "./log/access.log",
                 "pattern": "-yyyy-MM-dd",
                 "category": "http"
             }
             ,
             {
                 "type": "file",
-                "filename": "d:/log/app.log",
+                "filename": "./log/app.log",
                 "maxLogSize": 10485760,
                 "numBackups": 3
             }
@@ -37,7 +37,7 @@
                 "appender":
                 {
                     "type": "file",
-                    "filename": "d:/log/errors.log"
+                    "filename": "./log/errors.log"
                 }
             }
             ]
